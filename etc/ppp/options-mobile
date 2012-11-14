@@ -1,0 +1,21 @@
+921600
+lock
+crtscts
+modem
+passive
+novj
+defaultroute
+refuse-chap
+refuse-mschap-v2
+refuse-eap
+refuse-pap
+nobsdcomp
+nodeflate
+persist
+noipdefault
+usepeerdns
+holdoff 180
+noauth
+maxfail 0
+lcp-echo-failure 30
+lcp-echo-interval 10

@@ -1,0 +1,5 @@
+ttyUSB21
+file /etc/ppp/options-mobile
+user " "
+password " "
+connect "/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/apn.internet.chat"

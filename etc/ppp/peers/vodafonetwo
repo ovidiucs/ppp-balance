@@ -1,0 +1,5 @@
+ttyUSB3
+file /etc/ppp/options-mobile
+user "tobe.vodafone.ro"
+password "vodafone"
+connect "/usr/sbin/chat -v -t15 -f /etc/ppp/chatscripts/apn.tobe.vodafone.chat"

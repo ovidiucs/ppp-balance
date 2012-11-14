@@ -1,0 +1,55 @@
+#!/bin/sh
+
+# Constantinescu Ovidiu 
+# Data: Nov 5 2012
+# Scop: La fiecare reboot trebuie sa aduca interfetele PPP in UP, sa faca regulile in tablele de rutare si sa faca iptables-ul
+# Locatie /etc/rc.local
+
+# Variabile
+
+i='0'
+p='1'
+q='1'
+GW='64'
+inside='192.168.2.0/24'
+
+# Conditie
+while [ $i -le 7 ]
+do
+	ifconfig ppp$i > /dev/null 2>&1	
+
+	if [ $? -ne 0 ]
+	then
+# provider$p va fi symlink a.i. conexiunea sa fie iterata mai usor
+		sleep 1
+		pon provider$p
+		sleep 20
+# Conexiunea P s-a stabilit acum trebuies adaugate regulile
+	set -x
+	    ip rule add fwmark $q table d$q
+	set +x
+	else
+		echo 'Interface is up'
+	fi
+	p=$(($p + 1))
+	i=$(($i + 1))
+	GW=$(($GW + 1))
+	q=$(($q + 1))
+
+done
+# LAN-ul trebuie sa comunice cu exteriorul
+### trebuie verificata mai bine asta
+# ip rule add from all to $inside table main
+###
+
+# Odata terminata conditia while trebuie sa 
+# fie adaugate inregistrarile in iptables
+# iptables-restore < /etc/iptables/rules-probability
+
+iptables-restore < /etc/iptables/iptables-probability-two
+
+# inainte sa iese trebuie sa porneasca monitorizarea
+# exec /root/monitor.sh
+
+# Scriptul trebuie sa returneze 0
+exit 0
